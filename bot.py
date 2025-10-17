@@ -1,10 +1,14 @@
+import os
 import telebot
 from telebot import types
 from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # 🔑 Вставь свои ключи
-TELEGRAM_TOKEN = "8320967904:AAFvuopto8v0t4VnF29IN_yccWR81z_Dfbo"
-OPENAI_API_KEY = "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"
+TELEGRAM_TOKEN = os.getenv("TOKEN")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -57,4 +61,5 @@ def handle_message(message):
         bot.send_message(message.chat.id, f"⚠️ Ошибка: {e}")
 
 print("🤖 Бот запущен и ожидает сообщений...")
+
 bot.polling(non_stop=True)
